@@ -4,7 +4,8 @@ from dataclasses import dataclass
 from typing import List, Dict, Union
 import evaluate
 import librosa
-import gc
+import numpy as np
+from vocab import common_voice_train, common_voice_valid
 # import torch.nn as nn
 processor = Wav2Vec2Processor.from_pretrained("./processor")
 matric = evaluate.load("wer")
