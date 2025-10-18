@@ -130,7 +130,7 @@ training_args = TrainingArguments(
     learning_rate=5e-6,                  
     fp16=True,
     save_strategy="epoch",               # ✅ only save per epoch
-    evaluation_strategy="epoch",         # ✅ evaluate per epoch
+    eval_strategy="epoch",         # ✅ evaluate per epoch
     logging_steps=200,
     save_total_limit=1,                  # ✅ keep last checkpoint
     load_best_model_at_end=True,
@@ -155,5 +155,6 @@ trainer = Trainer(
 
 
 trainer.train()
+
 
 
