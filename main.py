@@ -141,7 +141,7 @@ training_args = TrainingArguments(
     weight_decay=0.01,
     report_to="none",
 )
-)
+
 
 trainer = Trainer(
     model=model,
@@ -155,4 +155,5 @@ trainer = Trainer(
 
 
 trainer.train()
+
 
