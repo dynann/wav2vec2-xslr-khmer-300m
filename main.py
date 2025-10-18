@@ -124,20 +124,21 @@ common_voice_valid = split["test"]
 # Optimized training arguments
 training_args = TrainingArguments(
     output_dir="./wav2vec2-xlsr-khmer-300m",
-    per_device_train_batch_size=16,      # Try 16, lower if OOM
-    gradient_accumulation_steps=2,       # Effective batch = 32
-    num_train_epochs=25,                 # 25 is realistic for ASR fine-tune
-    learning_rate=5e-6,                  
-    fp16=True,
-    save_strategy="epoch",               # ✅ only save per epoch
-    eval_strategy="epoch",         # ✅ evaluate per epoch
+    per_device_train_batch_size=16,   
+    gradient_accumulation_steps=2,       
+    num_train_epochs=25,                 
+    learning_rate=1e-4,                  
+    fp16=True,          
+    eval_strategy="steps",        
     logging_steps=200,
-    save_total_limit=1,                  # ✅ keep last checkpoint
+    save_total_limit=2,
+    save_steps=500,
+    eval_steps=500,
     load_best_model_at_end=True,
     metric_for_best_model="wer",
     greater_is_better=False,
     max_grad_norm=1.0,
-    warmup_ratio=0.05,
+    warmup_steps=500,
     weight_decay=0.01,
     report_to="none",
 )
@@ -155,6 +156,7 @@ trainer = Trainer(
 
 
 trainer.train()
+
 
 
 
