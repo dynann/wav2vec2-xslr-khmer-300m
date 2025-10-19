@@ -7,6 +7,9 @@ import librosa
 import numpy as np
 from vocab import common_voice_train, common_voice_valid
 import gc
+from huggingface_hub import HfApi
+from huggingface_hub import login
+login(token="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")
 # import torch.nn as nn
 processor = Wav2Vec2Processor.from_pretrained("./processor")
 matric = evaluate.load("wer")
@@ -126,7 +129,7 @@ common_voice_valid = split["test"]
 
 # Optimized training arguments
 training_args = TrainingArguments(
-    output_dir="./wav2vec2-xlsr-khmer-300m",
+    output_dir="/root/wav2vec2-xlsr-khmer-300m",
     per_device_train_batch_size=16,   
     gradient_accumulation_steps=4,       
     num_train_epochs=70,                 
@@ -157,8 +160,12 @@ trainer = Trainer(
     processing_class=processor.feature_extractor,
 )
 
+repo_name "dynann/wav2vec2-xlsr-khmer-300m"
+model.push_to_hub(repo_name)
+processor.push_to_hub(repo_name)
 
 trainer.train(resume_from_checkpoint=True)
+
 
 
 
