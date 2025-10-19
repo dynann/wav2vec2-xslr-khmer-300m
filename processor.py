@@ -1,12 +1,10 @@
 from transformers import Wav2Vec2CTCTokenizer, Wav2Vec2FeatureExtractor, Wav2Vec2Processor
 
-# Create tokenizer from vocab
 tokenizer = Wav2Vec2CTCTokenizer.from_pretrained(
     "./tokenizer",
     unk_token="[UNK]",
     pad_token="[PAD]",
     word_delimiter_token="|",
-    do_lower_case=False
 )
 
 feature_extractor = Wav2Vec2FeatureExtractor(
