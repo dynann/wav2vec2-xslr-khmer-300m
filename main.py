@@ -129,7 +129,7 @@ common_voice_valid = split["test"]
 
 # Optimized training arguments
 training_args = TrainingArguments(
-    output_dir="/root/wav2vec2-xlsr-khmer-300m",
+    output_dir="/root/wav2vec2-base-khmer",
     per_device_train_batch_size=16,   
     gradient_accumulation_steps=2,
     per_device_eval_batch_size=4,
@@ -162,11 +162,12 @@ trainer = Trainer(
     processing_class=processor.feature_extractor,
 )
 
-repo_name = "dynann/wav2vec2-xlsr-khmer-300m"
+repo_name = "dynann/wav2vec2-khm-base"
 model.push_to_hub(repo_name)
 processor.push_to_hub(repo_name)
 
 trainer.train()
+
 
 
 
