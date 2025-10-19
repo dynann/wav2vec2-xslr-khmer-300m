@@ -132,7 +132,7 @@ training_args = TrainingArguments(
     output_dir="/root/wav2vec2-xlsr-khmer-300m",
     per_device_train_batch_size=16,   
     gradient_accumulation_steps=4,       
-    num_train_epochs=70,                 
+    num_train_epochs=20,                 
     learning_rate=1e-4,                  
     fp16=True,          
     eval_strategy="steps",        
@@ -165,6 +165,7 @@ model.push_to_hub(repo_name)
 processor.push_to_hub(repo_name)
 
 trainer.train()
+
 
 
 
