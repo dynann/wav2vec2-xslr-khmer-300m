@@ -135,6 +135,7 @@ training_args = TrainingArguments(
     eval_strategy="steps",        
     logging_steps=50,
     save_total_limit=1,
+    save_only_model=True,  
     save_steps=200,
     eval_steps=200,
     load_best_model_at_end=False,
@@ -158,6 +159,7 @@ trainer = Trainer(
 
 
 trainer.train(resume_from_checkpoint=True)
+
 
 
 
