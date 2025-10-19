@@ -14,7 +14,7 @@ from huggingface_hub import login
 processor = Wav2Vec2Processor.from_pretrained("./processor")
 matric = evaluate.load("wer")
 model = Wav2Vec2ForCTC.from_pretrained(
-    "./wav2vec2-xlsr-khmer-300m/checkpoint-300", 
+    "./wav2vec2-xlsr-khmer-300m/checkpoint-600", 
     attention_dropout=0.1,
     layerdrop=0.0,
     feat_proj_dropout=0.0,
@@ -165,6 +165,7 @@ model.push_to_hub(repo_name)
 processor.push_to_hub(repo_name)
 
 trainer.train(resume_from_checkpoint=True)
+
 
 
 
