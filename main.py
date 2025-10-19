@@ -14,7 +14,7 @@ from huggingface_hub import login
 processor = Wav2Vec2Processor.from_pretrained("./processor")
 matric = evaluate.load("wer")
 model = Wav2Vec2ForCTC.from_pretrained(
-    "facebook/wav2vec2-xls-r-300m", 
+    "facebook/wav2vec2-base", 
     attention_dropout=0.1,
     layerdrop=0.0,
     feat_proj_dropout=0.0,
@@ -48,7 +48,7 @@ def compute_metrics(pred):
     wer_score = matric.compute(predictions=pred_str, references=label_str)
     return {"wer": wer_score}
 
-model.freeze_feature_encoder() 
+# model.freeze_feature_encoder() 
 print("⚠️  Feature extractor frozen - training transformer + classification head")
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -167,6 +167,7 @@ model.push_to_hub(repo_name)
 processor.push_to_hub(repo_name)
 
 trainer.train()
+
 
 
 
