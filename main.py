@@ -160,11 +160,12 @@ trainer = Trainer(
     processing_class=processor.feature_extractor,
 )
 
-repo_name "dynann/wav2vec2-xlsr-khmer-300m"
+repo_name = "dynann/wav2vec2-xlsr-khmer-300m"
 model.push_to_hub(repo_name)
 processor.push_to_hub(repo_name)
 
 trainer.train(resume_from_checkpoint=True)
+
 
 
 
