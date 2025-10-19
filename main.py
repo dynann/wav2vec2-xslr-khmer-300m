@@ -11,7 +11,7 @@ import gc
 processor = Wav2Vec2Processor.from_pretrained("./processor")
 matric = evaluate.load("wer")
 model = Wav2Vec2ForCTC.from_pretrained(
-    "facebook/wav2vec2-xls-r-300m", 
+    "./wav2vec2-xlsr-khmer-300m/checkpoint-600", 
     attention_dropout=0.1,
     layerdrop=0.0,
     feat_proj_dropout=0.0,
@@ -134,10 +134,10 @@ training_args = TrainingArguments(
     fp16=True,          
     eval_strategy="steps",        
     logging_steps=50,
-    save_total_limit=2,
-    save_steps=300,
-    eval_steps=300,
-    load_best_model_at_end=True,
+    save_total_limit=1,
+    save_steps=200,
+    eval_steps=200,
+    load_best_model_at_end=False,
     greater_is_better=False,
     max_grad_norm=1.0,
     warmup_steps=200,
@@ -157,7 +157,8 @@ trainer = Trainer(
 )
 
 
-trainer.train()
+trainer.train(resume_from_checkpoint=True)
+
 
 
 
