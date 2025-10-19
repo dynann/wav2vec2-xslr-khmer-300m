@@ -130,18 +130,20 @@ common_voice_valid = split["test"]
 # Optimized training arguments
 training_args = TrainingArguments(
     output_dir="/root/wav2vec2-xlsr-khmer-300m",
-    per_device_train_batch_size=16,   
-    gradient_accumulation_steps=4,       
-    num_train_epochs=20,                 
-    learning_rate=1e-4,                  
+    per_device_train_batch_size=4,   
+    gradient_accumulation_steps=8,
+    per_device_eval_batch_size=4,
+    num_train_epochs=60,                 
+    learning_rate=3e-5,                  
     fp16=True,          
     eval_strategy="steps",        
     logging_steps=50,
-    save_total_limit=1,
+    save_total_limit=3,
     save_only_model=True,  
     save_steps=200,
     eval_steps=200,
     load_best_model_at_end=True,
+    group_by_length=True,   
     # greater_is_better=False,
     max_grad_norm=1.0,
     warmup_steps=200,
@@ -165,6 +167,7 @@ model.push_to_hub(repo_name)
 processor.push_to_hub(repo_name)
 
 trainer.train()
+
 
 
 
