@@ -141,8 +141,8 @@ training_args = TrainingArguments(
     save_only_model=True,  
     save_steps=200,
     eval_steps=200,
-    load_best_model_at_end=False,
-    greater_is_better=False,
+    load_best_model_at_end=True,
+    # greater_is_better=False,
     max_grad_norm=1.0,
     warmup_steps=200,
     gradient_checkpointing=True,  
@@ -165,6 +165,7 @@ model.push_to_hub(repo_name)
 processor.push_to_hub(repo_name)
 
 trainer.train()
+
 
 
 
