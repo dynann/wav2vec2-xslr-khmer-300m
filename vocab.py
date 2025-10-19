@@ -12,6 +12,7 @@ df = pd.read_csv(
     "data/line_index.csv",
     header=None,
     names=["file_id", "unused", "transcription"],
+    nrows=2096,
 )
 
 df = df.drop(columns=["unused"])
@@ -67,3 +68,4 @@ with open("vocab.json", "w", encoding="utf-8") as f:
 
 print("✅ vocab.json saved successfully!")
 print(f"🔤 Total vocab size: {len(vocab_dict)}")
+
