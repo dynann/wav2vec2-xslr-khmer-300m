@@ -6,6 +6,7 @@ import evaluate
 import librosa
 import numpy as np
 from vocab import common_voice_train, common_voice_valid
+import gc
 # import torch.nn as nn
 processor = Wav2Vec2Processor.from_pretrained("./processor")
 matric = evaluate.load("wer")
@@ -48,6 +49,8 @@ model.freeze_feature_encoder()
 print("⚠️  Feature extractor frozen - training transformer + classification head")
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
+torch.cuda.empty_cache()
+gc.collect()
 print(f"Training on device: {device}")
 model.to(device)
 
@@ -126,18 +129,18 @@ training_args = TrainingArguments(
     output_dir="./wav2vec2-xlsr-khmer-300m",
     per_device_train_batch_size=16,   
     gradient_accumulation_steps=4,       
-    num_train_epochs=25,                 
+    num_train_epochs=70,                 
     learning_rate=1e-4,                  
     fp16=True,          
     eval_strategy="steps",        
-    logging_steps=100,
+    logging_steps=50,
     save_total_limit=2,
-    save_steps=500,
-    eval_steps=500,
+    save_steps=300,
+    eval_steps=300,
     load_best_model_at_end=True,
     greater_is_better=False,
     max_grad_norm=1.0,
-    warmup_steps=500,
+    warmup_steps=200,
     gradient_checkpointing=True,  
     weight_decay=0.01,
 )
@@ -155,6 +158,7 @@ trainer = Trainer(
 
 
 trainer.train()
+
 
 
 
