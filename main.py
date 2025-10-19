@@ -125,12 +125,12 @@ common_voice_valid = split["test"]
 training_args = TrainingArguments(
     output_dir="./wav2vec2-xlsr-khmer-300m",
     per_device_train_batch_size=16,   
-    gradient_accumulation_steps=2,       
+    gradient_accumulation_steps=4,       
     num_train_epochs=25,                 
     learning_rate=1e-4,                  
     fp16=True,          
     eval_strategy="steps",        
-    logging_steps=200,
+    logging_steps=100,
     save_total_limit=2,
     save_steps=500,
     eval_steps=500,
@@ -155,6 +155,7 @@ trainer = Trainer(
 
 
 trainer.train()
+
 
 
 
