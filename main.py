@@ -135,12 +135,11 @@ training_args = TrainingArguments(
     save_steps=500,
     eval_steps=500,
     load_best_model_at_end=True,
-    metric_for_best_model="wer",
     greater_is_better=False,
     max_grad_norm=1.0,
     warmup_steps=500,
+    gradient_checkpointing=True,  
     weight_decay=0.01,
-    report_to="none",
 )
 
 
@@ -156,6 +155,7 @@ trainer = Trainer(
 
 
 trainer.train()
+
 
 
 
