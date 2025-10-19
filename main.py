@@ -9,7 +9,7 @@ from vocab import common_voice_train, common_voice_valid
 import gc
 from huggingface_hub import HfApi
 from huggingface_hub import login
-login(token="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")
+
 # import torch.nn as nn
 processor = Wav2Vec2Processor.from_pretrained("./processor")
 matric = evaluate.load("wer")
@@ -165,6 +165,7 @@ model.push_to_hub(repo_name)
 processor.push_to_hub(repo_name)
 
 trainer.train(resume_from_checkpoint=True)
+
 
 
 
