@@ -137,7 +137,7 @@ training_args = TrainingArguments(
     learning_rate=1e-4,                  
     fp16=True,          
     eval_strategy="steps",        
-    logging_steps=50,
+    logging_steps=40,
     save_total_limit=3,
     save_only_model=True,  
     save_steps=200,
@@ -167,6 +167,7 @@ model.push_to_hub(repo_name)
 processor.push_to_hub(repo_name)
 
 trainer.train()
+
 
 
 
